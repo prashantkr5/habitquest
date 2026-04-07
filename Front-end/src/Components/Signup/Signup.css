@@ -1,0 +1,416 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+/* ── Reset ── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Rajdhani', sans-serif;
+  background: #000;
+}
+
+/* ══════════════════════════════════════════
+   FULL-SCREEN WRAPPER  →  .Signup-card
+══════════════════════════════════════════ */
+.Signup-card {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/Users/keshav/Desktop/habit-quest-v1/Front-end/src/Img/Signup-bg.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;   /* ← form sits on RIGHT */
+  overflow: hidden;
+}
+
+/* Multi-layer atmospheric overlay */
+.Signup-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 55% 75% at 18% 50%, rgba(219, 208, 249, 0.22) 0%, transparent 70%),
+    linear-gradient(108deg,
+      rgba(5, 2, 20, 0.28) 0%,
+      rgba(0, 0, 0, 0.76) 52%,
+      rgba(2, 0, 14, 0.93) 100%);
+  z-index: 1;
+}
+
+/* Subtle scanline texture */
+.Signup-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 255, 255, 0.011) 2px,
+    rgba(211, 196, 196, 0.011) 4px
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ══════════════════════════════════════════
+   CHARACTER IMAGE  →  LEFT SIDE
+══════════════════════════════════════════ */
+.Character-img {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 100vh;
+  width: 52vw;
+  max-width: 640px;
+  z-index: 3;
+  pointer-events: none;
+
+  background-image: url('/Users/keshav/Desktop/habit-quest-v1/Front-end/src/Img/Sign-up_img.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom left;
+
+  filter:
+    drop-shadow(0 0 40px rgba(130, 80, 255, 0.55))
+    drop-shadow(0 0 100px rgba(80, 140, 255, 0.28))
+    drop-shadow(0 0 200px rgba(100, 60, 220, 0.18));
+
+  animation: floatChar 7s ease-in-out infinite;
+}
+
+@keyframes floatChar {
+  0%, 100% { transform: translateY(0px) scale(1);       }
+  50%       { transform: translateY(-18px) scale(1.01);  }
+}
+
+/* ══════════════════════════════════════════
+   GLASS PANEL  →  RIGHT SIDE
+══════════════════════════════════════════ */
+.Signup-container {
+  position: relative;
+  z-index: 4;
+  margin-right: 7vw;
+  width: 420px;
+  padding: 40px 38px 34px;
+  border-radius: 24px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(243, 238, 238, 0.09) 0%,
+      rgba(198, 191, 191, 0.04) 100%
+    );
+  backdrop-filter: blur(28px) saturate(180%) brightness(1.05);
+  -webkit-backdrop-filter: blur(28px) saturate(180%) brightness(1.05);
+
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+  border-left: 1px solid rgba(255, 255, 255, 0.17);
+
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.08),
+    0 32px 64px rgba(245, 244, 244, 0.65),
+    0 8px 24px rgba(232, 231, 231, 0.45),
+    0 0 80px rgba(251, 251, 251, 0.1);
+
+  text-align: center;
+  animation: panelIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Glowing hairline at the top */
+.Signup-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 18%;
+  right: 18%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(167, 139, 250, 0.75), transparent);
+}
+
+@keyframes panelIn {
+  from { opacity: 0; transform: translateY(30px) scale(0.97); filter: blur(4px); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    filter: blur(0);   }
+}
+
+/* ── Heading ── */
+.Signup-container h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+  background: linear-gradient(135deg, #ffffff 0%, #c4b5fd 55%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Subtitle (1st <p>) ── */
+.Signup-container > p:first-of-type {
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.689);
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+
+/* ══════════════════════════════════════════
+   SOCIAL BUTTONS
+══════════════════════════════════════════ */
+.Google,
+.Github {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 26px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.82);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  margin: 0 5px 18px;
+}
+
+.Google i, .Github i { font-size: 1rem; }
+
+.Google:hover {
+  background: rgba(234, 67, 53, 0.16);
+  border-color: rgba(234, 67, 53, 0.42);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(234, 67, 53, 0.18);
+}
+
+.Github:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.32);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.08);
+}
+
+/* ══════════════════════════════════════════
+   OR DIVIDER  (2nd <p>)
+══════════════════════════════════════════ */
+.Signup-container > p:nth-of-type(2) {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.619);
+  margin-bottom: 20px;
+}
+
+.Signup-container > p:nth-of-type(2)::before,
+.Signup-container > p:nth-of-type(2)::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.14), transparent);
+}
+
+/* ══════════════════════════════════════════
+   FORM FIELDS
+══════════════════════════════════════════ */
+.Form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+}
+
+/* First + Last name side by side */
+.Name {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* Labels */
+.Form-field > label,
+.Name > label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 0.70rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.42);
+}
+
+/* All inputs */
+.Form-field input,
+.Name input {
+  width: 100%;
+  padding: 11px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  background: rgba(255, 255, 255, 0.055);
+  color: #fff;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.98rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  outline: none;
+  transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
+}
+
+.Form-field input::placeholder,
+.Name input::placeholder {
+  color: rgba(255, 255, 255, 0.20);
+  font-weight: 400;
+}
+
+.Form-field input:focus,
+.Name input:focus {
+  border-color: rgba(167, 139, 250, 0.62);
+  background: rgba(167, 139, 250, 0.07);
+  box-shadow:
+    0 0 0 3px rgba(167, 139, 250, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Password hint text */
+.Form-field > p {
+  font-size: 0.73rem;
+  color: rgba(255, 255, 255, 0.572);
+  letter-spacing: 0.05em;
+  margin-top: -6px;
+  font-style: italic;
+}
+
+/* ══════════════════════════════════════════
+   SIGNUP BUTTON
+══════════════════════════════════════════ */
+.Signup-btn {
+  width: 100%;
+  padding: 14px;
+  margin-top: 4px;
+  border: none;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+
+  background: linear-gradient(135deg, #ffffff 0%, #ddd6fe 100%);
+  color: #0d0a1a;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.80rem;
+  font-weight: 700;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+
+  transition: transform 0.18s ease, box-shadow 0.25s ease;
+  box-shadow: 0 4px 20px rgba(167, 139, 250, 0.28);
+}
+
+/* Shimmer sweep */
+.Signup-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    108deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.50) 50%,
+    transparent 70%
+  );
+  transform: translateX(-120%);
+  transition: transform 0.55s ease;
+}
+
+.Signup-btn:hover {
+  background: linear-gradient(135deg, #ede9fe 0%, #c4b5fd 100%);
+  box-shadow:
+    0 0 32px rgba(167, 139, 250, 0.55),
+    0 8px 24px rgba(0, 0, 0, 0.35);
+  transform: translateY(-2px);
+}
+
+.Signup-btn:hover::after {
+  transform: translateX(120%);
+}
+
+.Signup-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(167, 139, 250, 0.28);
+}
+
+/* ══════════════════════════════════════════
+   ALREADY HAVE ACCOUNT  (last <p>)
+══════════════════════════════════════════ */
+.Signup-container > p:last-of-type {
+  margin-top: 20px;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.466);
+  letter-spacing: 0.06em;
+}
+
+.Signup-container > p:last-of-type a {
+  color: rgba(167, 139, 250, 0.88);
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  transition: color 0.2s, text-shadow 0.2s;
+}
+
+.Signup-container > p:last-of-type a:hover {
+  color: #fff;
+  text-shadow: 0 0 14px rgba(167, 139, 250, 0.70);
+}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .Signup-container {
+    margin-right: 4vw;
+    width: 380px;
+  }
+}
+
+@media (max-width: 768px) {
+  .Signup-card {
+    justify-content: center;
+  }
+  .Signup-container {
+    margin-right: 0;
+    width: 92vw;
+    max-width: 420px;
+    padding: 32px 24px 28px;
+  }
+  .Character-img {
+    left: -60px;
+    height: 55vh;
+    width: 100vw;
+    opacity: 0.25;
+    bottom: 0;
+  }
+}

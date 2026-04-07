@@ -1,0 +1,339 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Rajdhani:wght@300;400;500;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Rajdhani', sans-serif;
+  background: #000;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* ── Full-screen background ── */
+.Login-card {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/Users/keshav/habit-quest-v1/Front-end/src/Img/Login-background.JPG');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+/* dark overlay so text stays readable */
+.Login-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(0, 0, 0, 0.72) 40%,
+    rgba(10, 5, 30, 0.45) 100%
+  );
+  z-index: 1;
+}
+
+/* ── Character image – right side ── */
+.Character-img {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+  width: 50vw;
+  max-width: 600px;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+
+  background-image: url('/Users/keshav/habit-quest-v1/Front-end/src/Img/Login-img-removebg.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom right;
+
+  /* subtle glow behind the character */
+  filter: drop-shadow(0 0 60px rgba(120, 80, 255, 0.45))
+          drop-shadow(0 0 120px rgba(80, 160, 255, 0.25));
+
+  animation: floatChar 6s ease-in-out infinite;
+}
+
+@keyframes floatChar {
+  0%, 100% { transform: translateY(0px);   }
+  50%       { transform: translateY(-20px); }
+}
+
+/* ── Glassmorphism login panel ── */
+.login-container {
+  position: relative;
+  z-index: 3;
+  margin-left: 20vw;
+  width: 380px;
+  padding: 44px 40px 36px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  text-align: center;
+
+  animation: slideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ── Headings ── */
+#hello {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.55);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+#welcome {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.05em;
+  margin-bottom: 28px;
+  background: linear-gradient(90deg, #fff 40%, #a78bfa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Form ── */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  text-align: left;
+  margin-bottom: 8px;
+}
+
+/* Input wrapper – puts icon inside the box */
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrapper i {
+  position: absolute;
+  right: 12px;
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 0.95rem;
+  pointer-events: none;
+}
+
+/* Labels */
+.form-group label,
+.form-group lable {
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 500;
+}
+
+/* Inputs */
+.form-group input {
+  width: 100%;
+  padding: 10px 38px 10px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  outline: none;
+  transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
+}
+
+.form-group input::placeholder {
+  color: rgba(255, 255, 255, 0.28);
+}
+
+.form-group input:focus {
+  border-color: rgba(167, 139, 250, 0.7);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.15);
+}
+
+/* Forget password */
+.forget-password {
+  display: block;
+  text-align: right;
+  
+}
+
+.forget-password a {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.42);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  transition: color 0.2s;
+}
+
+.forget-password a:hover {
+  color: #a78bfa;
+}
+
+/* ── Login button ── */
+.login-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: #fff;
+  color: #0a0a0f;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.15s, box-shadow 0.25s;
+  margin-bottom: 14px;
+}
+
+.login-btn:hover {
+  background: #e0d7ff;
+  box-shadow: 0 0 24px rgba(167, 139, 250, 0.45);
+  transform: translateY(-1px);
+}
+
+.login-btn:active {
+  transform: translateY(0);
+}
+
+/* ── Divider "Or continue with" ── */
+.or-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* margin: 4px 0 16px; */
+}
+
+.or-divider hr {
+  flex: 1;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  margin: 0;
+}
+
+.or-divider span {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.35);
+  white-space: nowrap;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+/* ── Social buttons ── */
+.social-login {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 14px;
+  margin-bottom: 20px;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 11px 18px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.22s, border-color 0.22s, transform 0.15s;
+  flex: 1;
+}
+
+.social-btn i {
+  font-size: 1rem;
+}
+
+.social-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(167, 139, 250, 0.5);
+  transform: translateY(-2px);
+}
+
+/* ── No account ── */
+.no-account {
+  text-align: center;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.38);
+  letter-spacing: 0.04em;
+}
+
+.no-account a {
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  transition: color 0.2s;
+}
+
+.no-account a:hover {
+  color: #a78bfa;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .login-container {
+    margin-left: 50%;
+    transform: translateX(-50%);
+    width: 90vw;
+  }
+
+  .Character-img {
+    right: -80px;
+    height: 60vh;
+    width: 100vw;
+    opacity: 0.35;
+    bottom: 0;
+  }
+}
