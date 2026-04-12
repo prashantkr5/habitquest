@@ -1,0 +1,8 @@
+#root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* We removed all the old Vite boilerplate so the layout can naturally fill the screen */

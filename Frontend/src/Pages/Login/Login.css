@@ -1,0 +1,220 @@
+/* Unified CSS for Login and Signup to match the dark gamified Gameloop reference */
+
+/* Background Wrapper */
+.auth-page-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Use the specified Login Background */
+  background: url('../../Images/Login-background.JPG') no-repeat center center/cover;
+}
+
+/* Add a dark overlay so the background isn't too distracting */
+.auth-page-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 15, 25, 0.7); /* Deep dark blue/grey tint */
+  z-index: 0;
+}
+
+/* Main Premium Glass Card */
+.auth-split-card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: 850px;
+  min-height: 550px;
+  max-width: 95vw;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+  background-color: var(--auth-surface); /* #3a3234 */
+}
+
+/* ====== LEFT PANEL (Character View) ====== */
+.auth-left-panel {
+  flex: 1;
+  position: relative;
+  background: linear-gradient(180deg, rgba(30, 26, 28, 0.2) 0%, var(--auth-surface) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2rem;
+  overflow: hidden;
+}
+
+/* Character Overlay Image */
+.auth-character-art {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 110%; /* Makes character pop */
+  width: auto;
+  object-fit: cover;
+  z-index: 1;
+  filter: drop-shadow(5px 5px 15px rgba(0,0,0,0.5));
+}
+
+/* Let the text sit above the character */
+.auth-left-text {
+  position: relative;
+  z-index: 2;
+  color: var(--auth-text-main);
+  text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+}
+.auth-left-text h2 {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+}
+.auth-left-text p {
+  font-size: 1rem;
+  color: #d1d1d1;
+}
+
+/* ====== RIGHT PANEL (Form View) ====== */
+.auth-right-panel {
+  flex: 1;
+  padding: 3rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--auth-surface);
+  color: var(--auth-text-main);
+}
+
+.auth-right-panel h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 0.2rem;
+  font-weight: 700;
+}
+
+.auth-right-panel .subtitle {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--auth-text-muted);
+  margin-bottom: 2rem;
+}
+
+.auth-form-group {
+  margin-bottom: 1.2rem;
+  width: 100%;
+}
+
+.auth-form-group input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  background-color: var(--auth-input-bg);
+  border: 1px solid rgba(255,255,255,0.05); /* Soft border */
+  border-radius: 8px;
+  color: var(--auth-text-main);
+  font-size: 0.9rem;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.3s;
+}
+
+.auth-form-group input:focus {
+  border-color: var(--auth-accent-cyan);
+}
+
+.auth-password-wrapper {
+  position: relative;
+}
+.auth-password-wrapper input {
+  padding-right: 2.5rem;
+}
+.auth-eye-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--auth-text-muted);
+  cursor: pointer;
+}
+.auth-eye-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.auth-form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  font-size: 0.8rem;
+}
+
+.auth-form-options a {
+  color: var(--auth-accent-cyan);
+}
+
+.auth-submit-btn {
+  width: 100%;
+  background-color: var(--auth-accent-cyan);
+  color: #111;
+  padding: 0.9rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(59, 209, 239, 0.3);
+}
+
+.auth-submit-btn:hover {
+  background-color: #5ce0fa;
+  transform: translateY(-1px);
+}
+
+.auth-social {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.auth-social-btn {
+  flex: 1;
+  background-color: var(--auth-input-bg);
+  color: var(--auth-text-main);
+  padding: 0.7rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-social-btn:hover {
+  background-color: #5a4b51;
+}
+
+.auth-footer {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--auth-text-muted);
+}
+.auth-footer a {
+  color: var(--auth-accent-cyan);
+  margin-left: 0.3rem;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .auth-left-panel {
+    display: none; /* Hide character on small mobile screens */
+  }
+}

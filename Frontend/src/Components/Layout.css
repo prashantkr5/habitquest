@@ -1,0 +1,249 @@
+/* ====================== LAYOUT.CSS (Premium Dark Aesthetic) ====================== */
+
+.app-canvas {
+  width: 100vw;
+  height: 100vh;
+  background: var(--dash-bg-canvas);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2vh 2vw; 
+}
+
+.crextio-container {
+  width: 100%;
+  height: 100%;
+  max-width: 1600px;
+  background: var(--dash-surface-solid);
+  border-radius: 35px;
+  box-shadow: var(--dash-shadow-soft);
+  display: flex;
+  overflow: hidden;
+  border: 1px solid var(--dash-glass-border);
+}
+
+/* ─── Sidebar ─── */
+.sidebar {
+  width: 250px;
+  background: var(--dash-surface-solid); 
+  border-right: 1px solid var(--dash-glass-border);
+  display: flex;
+  flex-direction: column;
+  padding: 40px 20px;
+  z-index: 10;
+}
+
+.sidebar-logo {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--dash-text-dark);
+  margin-bottom: 50px;
+  text-align: center;
+  letter-spacing: -0.5px;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px;
+  border-radius: 16px;
+  color: var(--dash-text-gray);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.03);
+  color: #ffffff;
+}
+
+/* Specific glowing badge for active state based on reference */
+.nav-item.active {
+  background: var(--dash-panel-bg);
+  color: var(--dash-accent-purple);
+  box-shadow: inset 2px 0 0 var(--dash-accent-purple); /* sleek left border */
+}
+
+/* ─── Main Content Area ─── */
+.main-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--dash-surface-solid);
+}
+
+/* ─── TopNav ─── */
+.topnav {
+  height: 90px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  z-index: 5;
+}
+
+.player-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex: 1;
+}
+
+.player-avatar-img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  border: 2px solid var(--dash-panel-bg);
+  background: var(--dash-panel-bg);
+}
+
+.player-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  max-width: 350px;
+}
+
+.stat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.level-badge {
+  color: var(--dash-text-dark);
+  font-weight: 800;
+  letter-spacing: -0.2px;
+}
+
+.rank-title {
+  color: var(--dash-text-gray);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.xp-container {
+  width: 100%;
+  height: 8px;
+  background: #363b4a;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.xp-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--dash-accent-pink) 0%, var(--dash-accent-purple) 100%);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(179, 115, 242, 0.4);
+}
+
+.xp-text {
+  font-size: 0.75rem;
+  color: var(--dash-text-gray);
+  align-self: flex-end;
+  margin-top: 2px;
+  font-weight: 600;
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.action-btn {
+  background: var(--dash-panel-bg);
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  color: var(--dash-text-gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  border: 1px solid var(--dash-glass-border);
+}
+
+.action-btn:hover {
+  background: #323744;
+  color: #fff;
+}
+
+.streak-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--dash-panel-bg);
+  border: 1px solid var(--dash-glass-border);
+  padding: 8px 16px;
+  border-radius: 14px;
+  color: #ffa500;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+/* ─── Content View ─── */
+.content-area {
+  flex: 1;
+  padding: 0 40px 40px 40px;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .app-canvas {
+    padding: 0;
+  }
+  .crextio-container {
+    border-radius: 0;
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    height: 80px;
+    flex-direction: row;
+    padding: 0 20px;
+    align-items: center;
+  }
+  .sidebar-logo {
+    margin-bottom: 0;
+    margin-right: auto;
+    font-size: 1.4rem;
+  }
+  .nav-links {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+  .nav-item span {
+    display: none;
+  }
+  .topnav {
+    padding: 0 20px;
+    height: auto;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  .content-area {
+    padding: 20px;
+  }
+}

@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* Global Fonts */
+  --font-primary: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Outfit', 'Inter', system-ui, sans-serif;
+
+  /* =========================================
+     AUTH THEME (Dark Gamified / Slate)
+     ========================================= */
+  --auth-bg-color: #2b282c; 
+  --auth-surface: #3a3234;
+  --auth-input-bg: #4a3e42;
+  --auth-accent-cyan: #3bd1ef; 
+  --auth-text-main: #ffffff;
+  --auth-text-muted: #a69c9f;
+}
+
+/* =========================================
+   DARK THEME (Premium "Do it" Reference)
+   ========================================= */
+[data-theme="dark"] {
+  --dash-bg-canvas: #02050b;
+  --dash-surface-solid: #030712;
+  --dash-panel-bg: rgba(6, 12, 20, 0.85);
+  
+  --dash-accent-purple: #4ae2ff;
+  --dash-accent-pink: #11a2f6;
+  --dash-accent-blue: #8fe8ff;
+
+  --dash-btn-gradient: linear-gradient(180deg, rgba(8, 15, 30, 0.95) 0%, rgba(4, 8, 15, 0.98) 100%);
+
+  --dash-text-dark: #d4f1f9;
+  --dash-text-gray: #6b9db3;
+  
+  --dash-glass-border: rgba(74, 226, 255, 0.4);
+  --dash-shadow-soft: 0 0 20px rgba(74, 226, 255, 0.15);
+  --dash-shadow-card: inset 0 0 10px rgba(74, 226, 255, 0.1), 0 0 10px rgba(74, 226, 255, 0.05);
+
+  --dash-border-radius: 2px;
+}
+
+/* Enforce sharp mechanical borders in Dark System Theme */
+[data-theme="dark"] .habit-card,
+[data-theme="dark"] .dashboard-card,
+[data-theme="dark"] .stats-card,
+[data-theme="dark"] .glass-box,
+[data-theme="dark"] .todo-container,
+[data-theme="dark"] .task-item,
+[data-theme="dark"] .journal-container,
+[data-theme="dark"] .entry-card,
+[data-theme="dark"] .focus-container,
+[data-theme="dark"] .left-sidebar,
+[data-theme="dark"] .top-nav,
+[data-theme="dark"] .profile-header-banner,
+[data-theme="dark"] .welcome-banner {
+  border-radius: var(--dash-border-radius) !important;
+  border: 1px solid var(--dash-glass-border) !important;
+}
+
+/* =========================================
+   LIGHT THEME (Crextio Glassmorphism)
+   ========================================= */
+[data-theme="light"] {
+  --dash-bg-canvas: #e0e5ed;
+  --dash-surface-solid: #ffffff;
+  --dash-panel-bg: #f8fafc;
+  
+  --dash-accent-purple: #8b5cf6;
+  --dash-accent-pink: #ec4899;
+  --dash-accent-blue: #3b82f6;
+
+  --dash-btn-gradient: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%);
+
+  --dash-text-dark: #1e293b;
+  --dash-text-gray: #64748b;
+  
+  --dash-glass-border: rgba(0, 0, 0, 0.05);
+  --dash-shadow-soft: 0 20px 40px rgba(0, 0, 0, 0.05);
+  --dash-shadow-card: 0 4px 15px rgba(0, 0, 0, 0.03);
+
+  --dash-border-radius: 20px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-primary), monospace;
+  background-color: var(--dash-bg-canvas);
+  color: var(--dash-text-dark);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Global Aesthetics */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s ease;
+}
+
+button {
+  font-family: var(--font-primary);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Beautiful custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* System Hologram Card Hover Effects */
+[data-theme="dark"] .habit-card:hover,
+[data-theme="dark"] .task-item:hover,
+[data-theme="dark"] .entry-card:hover {
+  box-shadow: 0 0 15px rgba(74, 226, 255, 0.3), inset 0 0 10px rgba(74, 226, 255, 0.1) !important;
+  border-color: #4ae2ff !important;
+}
