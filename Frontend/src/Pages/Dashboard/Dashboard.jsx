@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Plus, BarChart3, Moon, Activity as ActivityIcon } from 'lucide-react';
+import { Plus, BarChart3, Moon, Activity as ActivityIcon, Check, X } from 'lucide-react';
 import HabitCard from './HabitCard';
 import Heatmap from './Heatmap';
 import WeeklyBarChart from './WeeklyBarChart';
