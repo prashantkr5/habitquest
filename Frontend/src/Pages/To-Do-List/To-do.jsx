@@ -17,7 +17,7 @@ export default function ToDo() {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const res = await fetch('http://localhost:5001/api/tasks', {credentials: 'include'});
+        const res = await fetch('/api/tasks', {credentials: 'include'});
         if (res.ok) {
           const data = await res.json();
           setTasks(data.map(t => ({...t, id: t._id, xp: t.xpReward})));
@@ -37,7 +37,7 @@ export default function ToDo() {
       setTasks(tasks.map(t => t.id === newTask.id ? { ...t, ...optimisticTask } : t));
       
       try {
-        const res = await fetch(`http://localhost:5001/api/tasks/${newTask.id}`, {
+        const res = await fetch(`/api/tasks/${newTask.id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(newTask),
@@ -62,7 +62,7 @@ export default function ToDo() {
       setTasks([optimisticTask, ...tasks]);
       
       try {
-        const res = await fetch('http://localhost:5001/api/tasks', {
+        const res = await fetch('/api/tasks', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(newTask),
@@ -94,7 +94,7 @@ export default function ToDo() {
     setTasks(tasks.map(t => t.id === id ? { ...t, status: newStatus } : t));
 
     try {
-      const res = await fetch(`http://localhost:5001/api/tasks/${id}/status`, {
+      const res = await fetch(`/api/tasks/${id}/status`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus }),
@@ -112,7 +112,7 @@ export default function ToDo() {
   const deleteTask = async (id) => {
     setTasks(tasks.filter(t => t.id !== id));
     try {
-      await fetch(`http://localhost:5001/api/tasks/${id}`, {
+      await fetch(`/api/tasks/${id}`, {
         method: 'DELETE',
         credentials: 'include'
       });

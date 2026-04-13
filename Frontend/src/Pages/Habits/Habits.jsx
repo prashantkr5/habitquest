@@ -16,10 +16,10 @@ export default function Habits() {
   useEffect(() => {
     const fetchHabits = async () => {
       try {
-        const res = await fetch('http://localhost:5001/api/habits', {credentials: 'include'});
+        const res = await fetch('/api/habits', { credentials: 'include' });
         if (res.ok) {
           const data = await res.json();
-          setHabits(data.map(h => ({...h, id: h._id})));
+          setHabits(data.map(h => ({ ...h, id: h._id })));
         }
       } catch (err) {
         console.error(err);
@@ -32,9 +32,9 @@ export default function Habits() {
     // OPTIMISTIC UPDATE: Show instantly on UI
     const optimisticHabit = { ...newHabit, id: `temp-${Date.now()}`, _id: `temp-${Date.now()}` };
     setHabits([optimisticHabit, ...habits]);
-    
+
     try {
-      const res = await fetch('http://localhost:5001/api/habits', {
+      const res = await fetch('/api/habits', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newHabit),
@@ -43,7 +43,7 @@ export default function Habits() {
       if (res.ok) {
         // Silently swap temp ID with real DB ID
         const data = await res.json();
-        setHabits(prev => prev.map(h => h.id === optimisticHabit.id ? {...data, id: data._id} : h));
+        setHabits(prev => prev.map(h => h.id === optimisticHabit.id ? { ...data, id: data._id } : h));
         addToast('Habit Routine Registered.', 'success');
       } else {
         const errorData = await res.json();
@@ -59,7 +59,7 @@ export default function Habits() {
     setHabits(prev => prev.map(h => h.id === id ? { ...h, status: newStatus } : h));
 
     try {
-      const res = await fetch(`http://localhost:5001/api/habits/${id}/status`, {
+      const res = await fetch(`/api/habits/${id}/status`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus }),
@@ -69,9 +69,9 @@ export default function Habits() {
         const data = await res.json();
         setHabits(prev => prev.map(h => h.id === id ? { ...h, streak: data.habit.streak } : h));
         if (newStatus === 'completed') {
-           addToast(`Routine Completed! +${data.userStats?.xp - user.xp || 0} XP`, 'success');
+          addToast(`Routine Completed! +${data.userStats?.xp - user.xp || 0} XP`, 'success');
         } else if (newStatus === 'pending') {
-           addToast(`Routine Reverted.`, 'info');
+          addToast(`Routine Reverted.`, 'info');
         }
       }
     } catch (err) {
@@ -82,7 +82,7 @@ export default function Habits() {
   const handleDeleteHabit = async (id) => {
     setHabits(prev => prev.filter(h => h.id !== id));
     try {
-      await fetch(`http://localhost:5001/api/habits/${id}`, {
+      await fetch(`/api/habits/${id}`, {
         method: 'DELETE',
         credentials: 'include'
       });
@@ -96,9 +96,9 @@ export default function Habits() {
     <div className="todo-container">
       <div className="todo-header-v2" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--dash-panel-bg)', padding: '30px', border: '1px solid var(--dash-glass-border)', borderRadius: 'var(--dash-border-radius)', boxShadow: '0 0 20px rgba(74, 226, 255, 0.05)' }}>
         <h1 style={{ margin: 0, textTransform: 'uppercase', letterSpacing: '4px', textShadow: '0 0 15px rgba(74, 226, 255, 0.8), 0 0 30px rgba(74, 226, 255, 0.4)', color: '#fff' }}>Habit Quests</h1>
-        <button 
-          type="button" 
-          onClick={() => setIsModalOpen(true)} 
+        <button
+          type="button"
+          onClick={() => setIsModalOpen(true)}
           className="hologram-btn-small"
           style={{ padding: '15px 30px', fontSize: '1rem', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '10px' }}
         >
@@ -118,15 +118,15 @@ export default function Habits() {
               className={`task-row ${habit.status === 'completed' ? 'completed' : ''}`}
               style={{ padding: 0 }}
             >
-              <HabitCard 
-                habit={habit} 
-                onStatusChange={handleStatusChange} 
+              <HabitCard
+                habit={habit}
+                onStatusChange={handleStatusChange}
                 onDelete={handleDeleteHabit}
               />
             </motion.div>
           ))}
           {habits.length === 0 && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               className="empty-state-v2"
@@ -138,9 +138,9 @@ export default function Habits() {
         </AnimatePresence>
       </div>
 
-      <AddHabitModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
+      <AddHabitModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
         onAdd={handleAddHabit}
       />
     </div>

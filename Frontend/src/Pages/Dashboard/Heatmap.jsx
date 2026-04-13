@@ -4,8 +4,8 @@ import { motion } from 'framer-motion';
 export default function Heatmap({ title, data, loading }) {
   return (
     <div className="dashboard-card" style={{ flex: 1 }}>
-      <h3 style={{ fontSize: '0.9rem', color: 'var(--dash-text-gray)', marginBottom: '15px', textTransform: 'uppercase', letterSpacing: '1px' }}>
-        <Activity size={16} /> {title}
+      <h3 className="dashboard-section-heading" style={{ fontSize: '1.1rem', marginBottom: '15px', paddingBottom: '10px' }}>
+        <span className="decorator">//</span> {title}
       </h3>
       <div className="heatmap-grid">
         {loading && <p style={{color:'var(--dash-text-gray)'}}>Initializing system sync...</p>}

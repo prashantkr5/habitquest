@@ -15,15 +15,6 @@ const protect = async (req, res, next) => {
       res.status(401).json({ message: 'Not authorized, token failed' });
     }
   } else {
-    // 🚀 Dev Fallback: If browser drops the cookie on cross-port localhost requests,
-    // automatically attach the active user so local development isn't blocked.
-    if (process.env.NODE_ENV !== 'production') {
-      const devUser = await User.findOne();
-      if (devUser) {
-        req.user = devUser;
-        return next();
-      }
-    }
     res.status(401).json({ message: 'Not authorized, no token' });
   }
 };

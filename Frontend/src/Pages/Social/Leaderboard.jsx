@@ -16,7 +16,7 @@ export default function Leaderboard() {
 
   const fetchLeaderboard = async () => {
     try {
-      const res = await fetch('http://localhost:5001/api/social/leaderboard', { credentials: 'include' });
+      const res = await fetch('/api/social/leaderboard', { credentials: 'include' });
       if (res.ok) {
         const data = await res.json();
         setLeaderboard(data);
@@ -34,7 +34,7 @@ export default function Leaderboard() {
     e.preventDefault();
     if (!friendCodeInput.trim()) return;
     try {
-      const res = await fetch('http://localhost:5001/api/social/add-friend', {
+      const res = await fetch('/api/social/add-friend', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ friendCode: friendCodeInput.trim() }),

@@ -77,8 +77,8 @@ export default function Focus() {
   return (
     <div className="focus-container">
       <div className="focus-header">
-        <h1>Focus Area <span className="mode-badge">{mode === 'work' ? '🔥 Work' : '☕ Break'}</span></h1>
-        <p>Complete Pomodoro cycles to earn massive XP!</p>
+        <h1>Forest Mode <span className="mode-badge">{mode === 'work' ? '🔥 Work' : '☕ Break'}</span></h1>
+        <p>Complete Pomodoro cycles to grow your trees and earn XP!</p>
         
         <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', marginTop: '20px' }}>
           {[25, 55, 85].map(preset => (

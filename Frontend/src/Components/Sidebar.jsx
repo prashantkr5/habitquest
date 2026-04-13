@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, CheckSquare, Timer, BookOpen, Hexagon, PenTool, X, Send, Trophy } from 'lucide-react';
+import { LayoutDashboard, CheckSquare, Timer, BookOpen, Hexagon, PenTool, X, Send, Trophy, TreePine } from 'lucide-react';
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import logoImg from '../Images/Logo-fav.jpeg';
@@ -17,7 +17,7 @@ export default function Sidebar() {
     { path: '/Dashboard', name: 'Dashboard', icon: <LayoutDashboard size={20} /> },
     { path: '/Habits', name: 'Habit Quests', icon: <Hexagon size={20} /> },
     { path: '/ToDo', name: 'Daily Quests', icon: <CheckSquare size={20} /> },
-    { path: '/Focus', name: 'Focus Mode', icon: <Timer size={20} /> },
+    { path: '/Focus', name: 'Forest', icon: <TreePine size={20} /> },
     { path: '/Leaderboard', name: 'Leaderboard', icon: <Trophy size={20} /> },
     { path: '/Journal', name: 'Journal', icon: <BookOpen size={20} /> }
   ];
@@ -27,7 +27,7 @@ export default function Sidebar() {
     try {
       const today = new Date();
       const dateString = today.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-      const res = await fetch('http://localhost:5001/api/journal', {
+      const res = await fetch('/api/journal', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -49,7 +49,7 @@ export default function Sidebar() {
 
   return (
     <>
-      <div className="sidebar" style={{ display: 'flex', flexDirection: 'column', height: '100vh', paddingBottom: '20px' }}>
+      <div className="sidebar" style={{ display: 'flex', flexDirection: 'column', height: '100%', paddingBottom: '20px' }}>
         <div>
           <div className="sidebar-logo">
             <img src={logoImg} alt="Logo" style={{width: '32px', height: '32px', borderRadius: '8px', marginRight: '10px'}} />

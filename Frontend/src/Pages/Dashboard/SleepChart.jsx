@@ -8,7 +8,7 @@ export default function SleepChart() {
   useEffect(() => {
     const fetchSleep = async () => {
       try {
-        const res = await fetch('http://localhost:5001/api/sleep', { credentials: 'include' });
+        const res = await fetch('/api/sleep', { credentials: 'include' });
         if (res.ok) {
           const json = await res.json();
           const chartData = json.map(item => ({
@@ -30,9 +30,9 @@ export default function SleepChart() {
 
   return (
     <div className="dashboard-card" style={{ width: '100%', marginBottom: '20px', padding: '20px' }}>
-      <h3 style={{ borderBottom: '1px solid rgba(74, 226, 255, 0.2)', paddingBottom: '10px', marginBottom: '15px', color: 'white', letterSpacing: '1px' }}>
-        <span style={{ color: '#4ae2ff' }}>//</span> SLEEP DIAGNOSTICS
-      </h3>
+      <h2 className="dashboard-section-heading">
+        <span className="decorator">//</span> REST & RECOVERY
+      </h2>
       
       {data.length === 0 ? (
         <div style={{ color: '#6b9db3', textAlign: 'center', padding: '40px 0' }}>No sleep data found. Resting is vital for leveling up.</div>

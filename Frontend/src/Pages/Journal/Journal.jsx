@@ -14,7 +14,7 @@ export default function Journal() {
   useEffect(() => {
     const fetchEntries = async () => {
       try {
-        const res = await fetch('http://localhost:5001/api/journal', {credentials: 'include'});
+        const res = await fetch('/api/journal', {credentials: 'include'});
         if (res.ok) {
           const data = await res.json();
           const loaded = data.map(e => ({...e, id: e._id, date: e.dateString}));
@@ -30,7 +30,7 @@ export default function Journal() {
 
   const handleCreateNew = async () => {
     try {
-      const res = await fetch('http://localhost:5001/api/journal', {
+      const res = await fetch('/api/journal', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title: 'New Journal Entry', content: '' }),
@@ -56,7 +56,7 @@ export default function Journal() {
   const handleSave = async () => {
     if (!activeEntry) return;
     try {
-      await fetch(`http://localhost:5001/api/journal/${activeEntry.id}`, {
+      await fetch(`/api/journal/${activeEntry.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title: activeEntry.title, content: activeEntry.content }),
@@ -73,7 +73,7 @@ export default function Journal() {
   const handleDelete = async () => {
     if (!activeEntry) return;
     try {
-      await fetch(`http://localhost:5001/api/journal/${activeEntry.id}`, {
+      await fetch(`/api/journal/${activeEntry.id}`, {
         method: 'DELETE',
         credentials: 'include'
       });

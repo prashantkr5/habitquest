@@ -28,7 +28,7 @@ export default function TopNav() {
   useEffect(() => {
     if (showNotifs) {
       // Fetch notifs when opening dropdown
-      fetch('http://localhost:5001/api/notifications', { credentials: 'include' })
+      fetch('/api/notifications', { credentials: 'include' })
         .then(res => res.json())
         .then(data => {
             if(Array.isArray(data)) setNotifications(data);
@@ -38,7 +38,7 @@ export default function TopNav() {
   }, [showNotifs]);
 
   const handleLogout = async () => {
-    await fetch('http://localhost:5001/api/auth/logout', { method: 'POST', credentials: 'include' });
+    await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' });
     setUser(null);
     navigate('/Login');
   };

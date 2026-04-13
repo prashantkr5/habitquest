@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Plus, BarChart3, Moon, Activity as ActivityIcon, Check, X } from 'lucide-react';
 import HabitCard from './HabitCard';
 import Heatmap from './Heatmap';
-import WeeklyBarChart from './WeeklyBarChart';
 import SleepChart from './SleepChart';
 import SleepPopup from './SleepPopup';
 import AddHabitModal from './AddHabitModal';
@@ -11,7 +10,7 @@ import { useToast } from '../../Context/ToastContext';
 import './Dashboard.css';
 
 import { useNavigate } from 'react-router-dom';
-import welcomeChar from '../../Images/Char-img-removebg.png';
+import welcomeCharMale from '../../Images/Man_pic.png';
 import AddTaskModal from './AddTaskModal';
 
 export default function Dashboard() {
@@ -32,14 +31,14 @@ export default function Dashboard() {
     const fetchData = async () => {
       try {
         // Fetch Habits
-        const hRes = await fetch('http://localhost:5001/api/habits', {credentials: 'include'});
+        const hRes = await fetch('/api/habits', {credentials: 'include'});
         if (hRes.ok) {
           const hData = await hRes.json();
           setHabits(hData.map(h => ({...h, id: h._id})));
         }
 
         // Fetch Tasks
-        const tRes = await fetch('http://localhost:5001/api/tasks', {credentials: 'include'});
+        const tRes = await fetch('/api/tasks', {credentials: 'include'});
         if (tRes.ok) {
           const tData = await tRes.json();
           // Filter to show top 5 most recent tasks (includes completed so they don't vanish)
@@ -47,14 +46,14 @@ export default function Dashboard() {
         }
 
         // Fetch Heatmaps
-        const mapRes = await fetch('http://localhost:5001/api/activity/heatmap', {credentials: 'include'});
+        const mapRes = await fetch('/api/activity/heatmap', {credentials: 'include'});
         if (mapRes.ok) {
           const mapData = await mapRes.json();
           setHeatmaps(mapData);
         }
 
         // Fetch Recent Activities
-        const recentRes = await fetch('http://localhost:5001/api/activity/recent', {credentials: 'include'});
+        const recentRes = await fetch('/api/activity/recent', {credentials: 'include'});
         if (recentRes.ok) {
           const rData = await recentRes.json();
           setRecentActivities(rData);
@@ -69,7 +68,7 @@ export default function Dashboard() {
     const checkSleep = async () => {
       try {
         const todayIso = new Date().toISOString().split('T')[0];
-        const res = await fetch('http://localhost:5001/api/sleep', {credentials: 'include'});
+        const res = await fetch('/api/sleep', {credentials: 'include'});
         if (res.ok) {
           const sleepLogs = await res.json();
           const loggedToday = sleepLogs.some(log => log.dateString === todayIso);
@@ -91,7 +90,7 @@ export default function Dashboard() {
     setHabits(prev => prev.map(h => h.id === id ? { ...h, status: newStatus } : h));
 
     try {
-      const res = await fetch(`http://localhost:5001/api/habits/${id}/status`, {
+      const res = await fetch(`/api/habits/${id}/status`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus }),
@@ -117,7 +116,7 @@ export default function Dashboard() {
     setTasks(prev => prev.map(t => t._id === id ? { ...t, status: newStatus } : t));
     
     try {
-      const res = await fetch(`http://localhost:5001/api/tasks/${id}/status`, {
+      const res = await fetch(`/api/tasks/${id}/status`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus }),
@@ -138,7 +137,7 @@ export default function Dashboard() {
   const handleDeleteTask = async (id) => {
     setTasks(prev => prev.filter(t => t._id !== id));
     try {
-      await fetch(`http://localhost:5001/api/tasks/${id}`, {
+      await fetch(`/api/tasks/${id}`, {
         method: 'DELETE',
         credentials: 'include'
       });
@@ -153,7 +152,7 @@ export default function Dashboard() {
     setHabits([optimisticHabit, ...habits]);
     
     try {
-      const res = await fetch('http://localhost:5001/api/habits', {
+      const res = await fetch('/api/habits', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newHabit),
@@ -174,7 +173,7 @@ export default function Dashboard() {
   const handleDeleteHabit = async (id) => {
     setHabits(prev => prev.filter(h => h.id !== id));
     try {
-      await fetch(`http://localhost:5001/api/habits/${id}`, {
+      await fetch(`/api/habits/${id}`, {
         method: 'DELETE',
         credentials: 'include'
       });
@@ -189,7 +188,7 @@ export default function Dashboard() {
     setTasks([optimisticTask, ...tasks]);
     
     try {
-      const res = await fetch('http://localhost:5001/api/tasks', {
+      const res = await fetch('/api/tasks', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newTask),
@@ -211,7 +210,7 @@ export default function Dashboard() {
   const saveSleep = async (hours) => {
     try {
       const todayIso = new Date().toISOString().split('T')[0];
-      const res = await fetch('http://localhost:5001/api/sleep', {
+      const res = await fetch('/api/sleep', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ hours, dateString: todayIso }),
@@ -231,9 +230,8 @@ export default function Dashboard() {
       {/* FULL WIDTH TOP SECTION: Hello Card */}
       <div className="welcome-banner-full">
         <div className="welcome-content">
-          <p className="system-tag">SYSTEM_READY // USER_IDENTIFIED</p>
-          <h2>Hello, {user?.name || 'Hunter'}!</h2>
-          <p>Analyzing current quest trajectory... All systems operational. Prepare for today's objectives.</p>
+          <h2 className="welcome-heading">Welcome back, {user?.name || 'Hunter'}!</h2>
+          <p className="welcome-subtext">Your quest continues. Ready for today’s challenges?</p>
           <div className="banner-stats">
             <div className="b-stat"><span>LVL</span> {user?.level || 1}</div>
             <div className="b-stat"><span>XP</span> {user?.xp || 0}/1000</div>
@@ -242,7 +240,7 @@ export default function Dashboard() {
           </div>
         </div>
         <div className="welcome-art">
-           <img src={welcomeChar} alt="Character" className="floating-char-v2" />
+          <img src={welcomeCharMale} alt="Character" className="floating-char-solo" />
         </div>
       </div>
 
@@ -260,8 +258,6 @@ export default function Dashboard() {
         />
       </div>
 
-      <WeeklyBarChart activities={recentActivities} />
-
       {/* SLEEP CHART SECTION */}
       <SleepChart />
 
@@ -272,7 +268,9 @@ export default function Dashboard() {
         onClick={() => navigate('/ToDo')}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-          <h2 style={{ fontSize: '1.2rem', color: '#fff', margin: 0, letterSpacing: '2px' }}>[ DAILY QUESTS ]</h2>
+          <h2 className="dashboard-section-heading">
+            <span className="decorator">//</span> DAILY QUESTS
+          </h2>
           <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
             <div style={{ fontSize: '0.7rem', color: '#4ae2ff' }}>{tasks.length} PENDING OBJECTIVES</div>
             <button 
@@ -328,7 +326,9 @@ export default function Dashboard() {
       {/* HABITS HUD */}
       <div className="dashboard-card" style={{ width: '100%' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-          <h2 style={{ fontSize: '1.2rem', color: '#fff', margin: 0, letterSpacing: '2px' }}>[ HABIT QUESTS ]</h2>
+          <h2 className="dashboard-section-heading">
+            <span className="decorator">//</span> HABIT QUESTS
+          </h2>
         </div>
         
         <div className="habits-list-scroll" style={{maxHeight:'none'}}>
