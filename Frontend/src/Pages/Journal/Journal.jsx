@@ -56,7 +56,7 @@ export default function Journal() {
   const handleSave = async () => {
     if (!activeEntry) return;
     try {
-      await fetch(`/api/journal/${activeEntry.id}`, {
+      const res = await fetch(`/api/journal/${activeEntry.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title: activeEntry.title, content: activeEntry.content }),

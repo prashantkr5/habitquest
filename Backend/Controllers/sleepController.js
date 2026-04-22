@@ -1,8 +1,6 @@
 const SleepData = require('../Models/SleepData');
 
-// @desc    Log sleep for today
-// @route   POST /api/sleep
-// @access  Private
+
 const logSleep = async (req, res) => {
   const { hours, dateString } = req.body;
 
@@ -11,7 +9,6 @@ const logSleep = async (req, res) => {
   }
 
   try {
-    // Check if already exists to do upsert or reject
     let sleepEntry = await SleepData.findOne({ user: req.user.id, dateString });
 
     if (sleepEntry) {
@@ -30,16 +27,12 @@ const logSleep = async (req, res) => {
   }
 };
 
-// @desc    Get sleep data for last N days (for chart)
-// @route   GET /api/sleep
-// @access  Private
 const getSleepData = async (req, res) => {
   try {
     const sleepLogs = await SleepData.find({ user: req.user.id })
       .sort({ dateString: -1 })
-      .limit(7);
+      .limit(7); // last 7 din ka data 
 
-    // Reverse to get chronological for charting
     const sorted = sleepLogs.reverse();
     res.json(sorted);
   } catch (err) {

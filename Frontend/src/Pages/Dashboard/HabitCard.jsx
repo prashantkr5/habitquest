@@ -22,13 +22,19 @@ export default function HabitCard({ habit, onStatusChange, onDelete }) {
           {IconMap[habit.icon] || IconMap['Hexagon']}
         </div>
         <div className="habit-details">
-          <h3>{habit.title}</h3>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '4px' }}>
+            <h3 style={{ margin: 0 }}>{habit.title}</h3>
+            <span className={`p-badge ${habit.priority || 'Medium'}`} style={{ fontSize: '0.55rem', padding: '2px 7px' }}>
+              {habit.priority || 'Medium'}
+            </span>
+            <span className="xp-badge">+{habit.xpReward || (habit.priority === 'Low' ? 5 : habit.priority === 'High' ? 10 : 8)} XP</span>
+          </div>
           {habit.description && (
              <p style={{ fontSize: '0.8rem', color: 'var(--dash-text-gray)', marginTop: '4px', marginBottom: '4px', fontStyle: 'italic' }}>
                {habit.description}
              </p>
           )}
-          <p>{habit.streak} Day Streak • +{habit.xpReward} XP</p>
+          <p style={{ margin: 0, fontSize: '0.8rem' }}>{habit.streak} Day Streak</p>
         </div>
       </div>
       

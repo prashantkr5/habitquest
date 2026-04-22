@@ -46,7 +46,7 @@ const TASK_TEMPLATES = [
   { title: 'Watch an educational video',       priority: 'Low',    xpReward: 10 },
 ];
 
-const SLEEP_HOURS = [7.5, 8, 6.5, 7, 8.5, 7, 6.5]; // one per day oldest→newest
+const SLEEP_HOURS = [7.5, 8, 6.5, 3, 8.5, 7, 6.5]; // one per day oldest→newest
 
 // ─── Helpers ──────────────────────────────────────────────
 function daysAgo(n) {

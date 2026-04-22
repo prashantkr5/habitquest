@@ -4,8 +4,7 @@ const Activity = require('../Models/Activity');
 const JournalEntry = require('../Models/JournalEntry');
 
 const startCronJobs = () => {
-  // Run precisely at midnight every day
-  // Syntax: '0 0 * * *'
+
   cron.schedule('0 0 * * *', async () => {
     console.log('Running Midnight Cron: Generating Daily Journal Summaries for all users...');
 
@@ -13,8 +12,7 @@ const startCronJobs = () => {
       const users = await User.find({});
 
       const today = new Date();
-      // We are summarizing yesterday essentially if it runs exactly at midnight
-      // But let's grab anything from the last 24 hours.
+   
       const yesterday = new Date(today.getTime() - 24 * 60 * 60 * 1000);
 
       const dateString = today.toLocaleDateString('en-US', {
@@ -24,14 +22,12 @@ const startCronJobs = () => {
       });
 
       for (const user of users) {
-        // Fetch last 24h activities
         const activities = await Activity.find({
           user: user._id,
           date: { $gte: yesterday, $lte: today }
         });
 
         if (activities.length === 0) {
-          // Skip creating a journal if they did absolutely nothing
           continue;
         }
 
@@ -47,7 +43,6 @@ const startCronJobs = () => {
           }
         });
 
-        // Generate magical text
         const content = `System Pulse Report for last 24 hours:\n\n` +
           `• You added ${createdCount} new quests to your journey.\n` +
           `• You successfully conquered ${completedCount} quests.\n\n` +

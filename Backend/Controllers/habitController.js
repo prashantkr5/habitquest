@@ -2,9 +2,7 @@ const Habit = require('../Models/Habit');
 const User = require('../Models/User');
 const { processGamification } = require('../Utils/gamificationEngine');
 
-// @desc    Get user's habits
-// @route   GET /api/habits
-// @access  Private
+
 const getHabits = async (req, res) => {
   try {
     const habits = await Habit.find({ user: req.user.id }).sort({ createdAt: -1 });
@@ -14,9 +12,7 @@ const getHabits = async (req, res) => {
   }
 };
 
-// @desc    Create a new habit
-// @route   POST /api/habits
-// @access  Private
+
 const createHabit = async (req, res) => {
   try {
     const { title, description, priority, xpReward, frequency, icon, color } = req.body;
@@ -32,7 +28,7 @@ const createHabit = async (req, res) => {
       color: color || '#4ae2ff'
     });
 
-    // Notify creation
+ 
     await processGamification(req.user.id, 'create', 'habit', title, 0);
 
     res.status(201).json(habit);
@@ -41,9 +37,7 @@ const createHabit = async (req, res) => {
   }
 };
 
-// @desc    Update habit status & Trigger Gamification Engine
-// @route   PUT /api/habits/:id/status
-// @access  Private
+
 const updateHabitStatus = async (req, res) => {
   try {
     const { status } = req.body;
@@ -67,7 +61,7 @@ const updateHabitStatus = async (req, res) => {
     } else if (status === 'missed' && habit.status !== 'missed') {
       newStreak = 0;
     } else if (status === 'pending' && habit.status === 'completed') {
-      // Undo logic triggered
+   
       newStreak = Math.max(0, newStreak - 1);
       userStats = await processGamification(req.user.id, 'undo', 'habit', habit.title, habit.xpReward);
     }
@@ -87,9 +81,7 @@ const updateHabitStatus = async (req, res) => {
   }
 };
 
-// @desc    Delete a habit
-// @route   DELETE /api/habits/:id
-// @access  Private
+
 const deleteHabit = async (req, res) => {
   try {
     const habit = await Habit.findById(req.params.id);

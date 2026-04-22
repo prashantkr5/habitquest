@@ -11,12 +11,11 @@ const sleepDataSchema = new mongoose.Schema({
     required: true
   },
   dateString: {
-    type: String, // e.g. "2023-10-15"
+    type: String, 
     required: true
   }
 }, { timestamps: true });
 
-// Prevent duplicate entries per user per day
 sleepDataSchema.index({ user: 1, dateString: 1 }, { unique: true });
 
 module.exports = mongoose.model('SleepData', sleepDataSchema);

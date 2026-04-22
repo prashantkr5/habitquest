@@ -5,6 +5,7 @@ import { Bell, Settings, Flame, Moon, Sun, LogOut, User as UserIcon, Info } from
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import avatarImg from '../Images/Char-img2.JPG';
+import AboutModal from './AboutModal';
 import './Layout.css';
 import './Dropdowns.css';
 
@@ -15,6 +16,7 @@ export default function TopNav() {
 
   const [showSettings, setShowSettings] = useState(false);
   const [showNotifs, setShowNotifs] = useState(false);
+  const [showAbout, setShowAbout] = useState(false);
   const [notifications, setNotifications] = useState([]);
 
   // Stats calculate
@@ -46,8 +48,14 @@ export default function TopNav() {
   return (
     <div className="topnav">
       <div className="player-info">
-        <Link to="/Profile" title="View Profile">
-          <img src={avatarImg} alt="Player Avatar" className="player-avatar-img" />
+        <Link to="/Profile" title="View Profile" className="player-avatar-link">
+          {user?.avatar ? (
+            <img src={user.avatar} alt="Player Avatar" className="player-avatar-img" />
+          ) : (
+            <div className="player-avatar-initials">
+              {(user?.name || 'U')[0].toUpperCase()}
+            </div>
+          )}
         </Link>
         <div className="player-stats">
           <div className="stat-header">
@@ -89,7 +97,7 @@ export default function TopNav() {
                 <button onClick={() => navigate('/Profile')} className="dropdown-item">
                   <UserIcon size={16} /> Profile
                 </button>
-                <button className="dropdown-item">
+                <button className="dropdown-item" onClick={() => { setShowAbout(true); setShowSettings(false); }}>
                   <Info size={16} /> About
                 </button>
                 <div style={{height: '1px', background: 'var(--dash-glass-border)', margin: '5px 0'}} />
@@ -130,6 +138,7 @@ export default function TopNav() {
         </div>
 
       </div>
+      <AboutModal isOpen={showAbout} onClose={() => setShowAbout(false)} />
     </div>
   );
 }

@@ -1,15 +1,17 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, CheckSquare, Timer, BookOpen, Hexagon, PenTool, X, Send, Trophy, TreePine } from 'lucide-react';
+import { LayoutDashboard, CheckSquare, Timer, BookOpen, Hexagon, PenTool, X, Send, Trophy, TreePine, LogOut, UserCircle2 } from 'lucide-react';
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import logoImg from '../Images/Logo-fav.jpeg';
 import { useToast } from '../Context/ToastContext';
+import { useAuth } from '../Context/AuthContext';
 import './Layout.css';
 
 export default function Sidebar() {
   const location = useLocation();
   const navigate = useNavigate();
   const { addToast } = useToast();
+  const { logout } = useAuth();
   const [isNoteOpen, setIsNoteOpen] = useState(false);
   const [noteContent, setNoteContent] = useState('');
 
@@ -19,7 +21,8 @@ export default function Sidebar() {
     { path: '/ToDo', name: 'Daily Quests', icon: <CheckSquare size={20} /> },
     { path: '/Focus', name: 'Forest', icon: <TreePine size={20} /> },
     { path: '/Leaderboard', name: 'Leaderboard', icon: <Trophy size={20} /> },
-    { path: '/Journal', name: 'Journal', icon: <BookOpen size={20} /> }
+    { path: '/Journal', name: 'Journal', icon: <BookOpen size={20} /> },
+    { path: '/Profile', name: 'Profile', icon: <UserCircle2 size={20} /> }
   ];
 
   const saveNote = async () => {
@@ -47,6 +50,11 @@ export default function Sidebar() {
     }
   };
 
+  const handleLogout = async () => {
+    await logout();
+    navigate('/Login');
+  };
+
   return (
     <>
       <div className="sidebar" style={{ display: 'flex', flexDirection: 'column', height: '100%', paddingBottom: '20px' }}>
@@ -70,13 +78,27 @@ export default function Sidebar() {
           </div>
         </div>
 
-        <div style={{ marginTop: 'auto', padding: '0 15px' }}>
+        <div style={{ marginTop: 'auto', padding: '0 15px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
           <button 
             className="hologram-btn-small" 
             style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', padding: '12px' }}
             onClick={() => setIsNoteOpen(true)}
           >
             <PenTool size={16} /> QUICK NOTE
+          </button>
+          <button 
+            style={{ 
+              width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', padding: '12px',
+              background: 'rgba(255, 51, 102, 0.1)', border: '1px solid rgba(255, 51, 102, 0.3)',
+              color: '#ff3366', cursor: 'pointer', borderRadius: '4px', fontSize: '0.75rem',
+              fontWeight: 'bold', letterSpacing: '1px', textTransform: 'uppercase',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255, 51, 102, 0.2)'; e.currentTarget.style.borderColor = '#ff3366'; }}
+            onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255, 51, 102, 0.1)'; e.currentTarget.style.borderColor = 'rgba(255, 51, 102, 0.3)'; }}
+            onClick={handleLogout}
+          >
+            <LogOut size={16} /> LOGOUT
           </button>
         </div>
       </div>

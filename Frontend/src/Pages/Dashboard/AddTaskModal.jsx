@@ -1,7 +1,8 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
+
+const XP_MAP = { Low: 5, Medium: 8, High: 10 };
 
 export default function AddTaskModal({ isOpen, onClose, onAdd, initialTask = null }) {
   const [title, setTitle] = useState('');
@@ -30,7 +31,7 @@ export default function AddTaskModal({ isOpen, onClose, onAdd, initialTask = nul
       title, 
       description, 
       priority, 
-      xpReward: initialTask ? initialTask.xpReward : 10, 
+      xpReward: XP_MAP[priority],
       status: initialTask ? initialTask.status : 'pending' 
     });
     setTitle('');
@@ -173,10 +174,23 @@ export default function AddTaskModal({ isOpen, onClose, onAdd, initialTask = nul
                           textTransform: 'uppercase',
                           fontWeight: priority === prio ? 'bold' : 'normal',
                           boxShadow: priority === prio ? 'inset 0 0 10px rgba(74,226,255,0.2)' : 'none',
-                          transition: 'all 0.2s ease'
+                          transition: 'all 0.2s ease',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          gap: '4px'
                         }}
                       >
-                        {prio}
+                        <span>{prio}</span>
+                        <span style={{
+                          fontSize: '0.68rem',
+                          opacity: 0.8,
+                          color: priority === prio
+                            ? (prio === 'Low' ? '#4aff9e' : prio === 'Medium' ? '#ffb347' : '#ff4a6a')
+                            : '#4d7a8a'
+                        }}>
+                          +{XP_MAP[prio]} XP
+                        </span>
                       </button>
                     ))}
                   </div>

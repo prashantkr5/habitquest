@@ -50,10 +50,13 @@ const userSchema = new mongoose.Schema({
   }],
   badges: [{ 
     type: String 
-  }]
+  }],
+  avatar: {
+    type: String,
+    default: null
+  }
 }, { timestamps: true });
 
-// Pre-save hook to hash password before saving to db
 userSchema.pre('save', async function() {
   if (!this.isModified('password')) {
     return;

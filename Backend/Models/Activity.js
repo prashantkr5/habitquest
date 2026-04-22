@@ -11,7 +11,7 @@ const activitySchema = new mongoose.Schema({
     required: true
   },
   itemType: {
-    type: String, // 'habit' or 'task'
+    type: String, 
     default: 'task'
   },
   itemName: String,

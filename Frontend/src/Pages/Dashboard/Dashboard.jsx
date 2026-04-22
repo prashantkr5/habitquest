@@ -8,6 +8,7 @@ import AddHabitModal from './AddHabitModal';
 import { useAuth } from '../../Context/AuthContext';
 import { useToast } from '../../Context/ToastContext';
 import './Dashboard.css';
+import Footer from '../../Components/Footer';
 
 import { useNavigate } from 'react-router-dom';
 import welcomeCharMale from '../../Images/Man_pic.png';
@@ -37,12 +38,17 @@ export default function Dashboard() {
           setHabits(hData.map(h => ({...h, id: h._id})));
         }
 
-        // Fetch Tasks
+        // Fetch Tasks — show pending + recently completed (within 24h)
         const tRes = await fetch('/api/tasks', {credentials: 'include'});
         if (tRes.ok) {
           const tData = await tRes.json();
-          // Filter to show top 5 most recent tasks (includes completed so they don't vanish)
-          setTasks(tData.slice(0, 5)); 
+          const cutoff = Date.now() - 24 * 60 * 60 * 1000; // 24 hours ago
+          const visible = tData.filter(t => {
+            if (t.status !== 'completed') return true;           // always show pending
+            const updatedAt = new Date(t.updatedAt).getTime();
+            return updatedAt >= cutoff;                           // only show recent completions
+          });
+          setTasks(visible.slice(0, 5));
         }
 
         // Fetch Heatmaps
@@ -126,7 +132,11 @@ export default function Dashboard() {
       if (res.ok && data.userStats) {
         setUser(prev => ({ ...prev, ...data.userStats }));
         if (newStatus === 'completed') {
-           addToast("Quest complete! Level up imminent.", "xp");
+          addToast("Quest complete! Level up imminent.", "xp");
+          // Remove completed task from dashboard view after 2s (keeps it clean)
+          setTimeout(() => {
+            setTasks(prev => prev.filter(t => t._id !== id));
+          }, 2000);
         }
       }
     } catch (err) {
@@ -364,6 +374,8 @@ export default function Dashboard() {
         isOpen={isSleepModalOpen} 
         onSave={saveSleep}
       />
+
+      <Footer />
     </div>
   );
 }

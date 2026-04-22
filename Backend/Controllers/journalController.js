@@ -1,8 +1,6 @@
 const JournalEntry = require('../Models/JournalEntry');
 
-// @desc    Get user's journal entries
-// @route   GET /api/journal
-// @access  Private
+
 const getEntries = async (req, res) => {
   try {
     const entries = await JournalEntry.find({ user: req.user.id }).sort({ createdAt: -1 });
@@ -12,9 +10,7 @@ const getEntries = async (req, res) => {
   }
 };
 
-// @desc    Create a new journal entry
-// @route   POST /api/journal
-// @access  Private
+
 const createEntry = async (req, res) => {
   try {
     const { title, content, dateString } = req.body;
@@ -32,9 +28,7 @@ const createEntry = async (req, res) => {
   }
 };
 
-// @desc    Update a journal entry
-// @route   PUT /api/journal/:id
-// @access  Private
+
 const updateEntry = async (req, res) => {
   try {
     const { title, content } = req.body;
@@ -53,9 +47,7 @@ const updateEntry = async (req, res) => {
   }
 };
 
-// @desc    Delete an entry
-// @route   DELETE /api/journal/:id
-// @access  Private
+
 const deleteEntry = async (req, res) => {
   try {
     const entry = await JournalEntry.findById(req.params.id);

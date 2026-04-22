@@ -1,5 +1,32 @@
+# Dependencies
 node_modules/
+Back-end/node_modules/
+Backend/node_modules/
+Front-end/node_modules/
+Frontend/node_modules/
+
+# Build output
+dist/
+build/
+Frontend/dist/
+Front-end/dist/
+
+# Environment variables (NEVER commit these)
 .env
 *.env
-dist/
+.env.*
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
 .DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Package lock files (optional — keep if you want reproducible installs)
+# package-lock.json

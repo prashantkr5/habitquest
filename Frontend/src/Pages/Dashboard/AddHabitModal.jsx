@@ -37,10 +37,10 @@ export default function AddHabitModal({ isOpen, onClose, onAdd }) {
     e.preventDefault();
     if (!title.trim()) return;
     
-    // Exact PRD XP mapping
-    let xpReward = 20; // Medium
-    if (priority === 'Low') xpReward = 10;
-    if (priority === 'High') xpReward = 30;
+    // XP mapping: Low=5, Medium=8, High=10
+    let xpReward = 8; // Medium
+    if (priority === 'Low') xpReward = 5;
+    if (priority === 'High') xpReward = 10;
 
     onAdd({ 
       title, 
@@ -156,8 +156,11 @@ export default function AddHabitModal({ isOpen, onClose, onAdd }) {
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
                     {['Low', 'Medium', 'High'].map(prio => (
                       <button key={prio} type="button" onClick={() => setPriority(prio)}
-                        style={{ padding: '12px 10px', background: priority === prio ? `${color}33` : 'rgba(0, 0, 0, 0.3)', color: priority === prio ? color : '#6b9db3', border: priority === prio ? `1px solid ${color}` : '1px solid rgba(74, 226, 255, 0.2)', cursor: 'pointer' }}>
-                        {prio}<br/><span style={{fontSize: '0.7rem'}}>{prio==='Low'?'[10 XP]':prio==='Medium'?'[20 XP]':'[30 XP]'}</span>
+                        style={{ padding: '12px 10px', background: priority === prio ? `${color}33` : 'rgba(0, 0, 0, 0.3)', color: priority === prio ? color : '#6b9db3', border: priority === prio ? `1px solid ${color}` : '1px solid rgba(74, 226, 255, 0.2)', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+                        <span>{prio}</span>
+                        <span style={{ fontSize: '0.68rem', opacity: 0.8, color: priority === prio ? (prio === 'Low' ? '#4aff9e' : prio === 'Medium' ? '#ffb347' : '#ff4a6a') : '#4d7a8a' }}>
+                          +{prio === 'Low' ? 5 : prio === 'Medium' ? 8 : 10} XP
+                        </span>
                       </button>
                     ))}
                   </div>
