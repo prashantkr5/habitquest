@@ -13,17 +13,27 @@ const app = express();
 app.use(compression());
 
 // ─── 2. CORS ─────────────────────────────────────────────────────────────────
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'http://localhost:5175',
+  'http://localhost:5176',
+  // FRONTEND_URL can be comma-separated: "https://a.vercel.app,https://b.vercel.app"
+  ...(process.env.FRONTEND_URL
+    ? process.env.FRONTEND_URL.split(',').map(u => u.trim().replace(/\/$/, ''))
+    : [])
+].filter(Boolean);
+
 app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    'http://localhost:5174',
-    'http://localhost:5175',
-    'http://localhost:5176',
-    'http://localhost:5177',
-    process.env.FRONTEND_URL  // set this in .env when you deploy
-  ].filter(Boolean),
+  origin: (origin, callback) => {
+    // Allow requests with no origin (mobile apps, curl, Render health checks)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    return callback(new Error(`CORS blocked: ${origin}`));
+  },
   credentials: true
 }));
+
 
 // ─── 3. Body parsing ─────────────────────────────────────────────────────────
 app.use(express.json({ limit: '5mb' }));

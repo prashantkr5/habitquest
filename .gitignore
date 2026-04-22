@@ -11,10 +11,14 @@ build/
 Frontend/dist/
 Front-end/dist/
 
-# Environment variables (NEVER commit these)
+# Environment variables (NEVER commit actual secrets)
 .env
-*.env
-.env.*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+# Allow .env.example files (they contain no secrets, just templates)
+!.env.example
 
 # Logs
 *.log
