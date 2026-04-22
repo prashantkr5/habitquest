@@ -29,6 +29,12 @@ app.use(cors({
     // Allow requests with no origin (mobile apps, curl, Render health checks)
     if (!origin) return callback(null, true);
     if (allowedOrigins.includes(origin)) return callback(null, true);
+    
+    // Automatically allow Vercel preview deployments for this project
+    if (origin && origin.startsWith('https://habitquest') && origin.endsWith('.vercel.app')) {
+      return callback(null, true);
+    }
+    
     return callback(new Error(`CORS blocked: ${origin}`));
   },
   credentials: true
