@@ -1,142 +1,165 @@
-HabitQuest
 
-Turn your life into a game. Build habits, earn XP, and compete globally.
+<h1 align="center">
+  ⚔️ HabitQuest
+</h1>
 
-HabitQuest is a full-stack gamified productivity platform that helps users build consistency through streaks, rewards, journaling, and social competition.
+<p align="center">
+  <b>Gamified habit tracking — turn your daily routine into an adventure.</b><br/>
+  Build streaks, log sleep, complete tasks, journal your progress, and compete on the global leaderboard.
+</p>
 
-Why HabitQuest?
+<p align="center">
+  <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" />
+  <img src="https://img.shields.io/badge/Node.js-Express-339933?style=flat-square&logo=node.js" />
+  <img src="https://img.shields.io/badge/MongoDB-Mongoose-47A248?style=flat-square&logo=mongodb" />
+  <img src="https://img.shields.io/badge/Vite-7-646CFF?style=flat-square&logo=vite" />
+  <img src="https://img.shields.io/badge/License-MIT-yellow?style=flat-square" />
+</p>
 
-Most habit trackers are boring → users quit.
+---
 
-HabitQuest solves this by:
+## ✨ Features
 
-Adding gamification (XP, streaks, levels)
-Introducing leaderboards & social interaction
-Providing data-driven insights (sleep, habits, tasks)
-Automating consistency via cron-based systems
-Core Features
-Productivity & Tracking
-Habit tracking with streak system
-Daily task manager (auto-reset after 24h)
-Sleep tracker with analytics
-Daily journaling system
-Gamification Layer
-XP-based reward system
-Streak tracking
-Global leaderboard
-Social Features
-Friend system
-Compare streaks & progress
-Notifications
-Advanced Systems
-Focus mode (Pomodoro-style)
+| Feature | Description |
+|---|---|
+| 🔐 **Auth** | JWT-based register / login with HTTP-only cookies |
+| ✅ **Habits** | Create, track, and streak habits with a visual heatmap |
+| 📝 **Tasks** | Daily to-do list — completed tasks auto-expire after 24 h |
+| 😴 **Sleep Tracker** | Log sleep sessions and visualize trends with Recharts |
+| 📓 **Journal** | Private daily journal entries |
+| 🏆 **Leaderboard** | Global streak ranking across all registered users |
+| 👤 **Profile** | Upload avatar, view XP, streaks, and activity stats |
+| 🔔 **Notifications** | In-app notification system |
+| ⏱️ **Focus Mode** | Dedicated focus / Pomodoro page |
+| 🤝 **Social** | Friend system and social interactions |
+| 🤖 **Cron Jobs** | Automated background tasks (streak resets, cleanup) |
 
-Cron jobs for:
-streak resets
-expired tasks cleanup
+---
 
-Secure authentication (JWT + cookies)
+## 🗂️ Project Structure
 
-Tech Stack
-Frontend
-React + Vite
-React Router DOM
-Framer Motion (animations)
-Recharts (data visualization)
-Lucide Icons
-Backend
-Node.js + Express
-MongoDB + Mongoose
-JWT Authentication
-bcrypt (password hashing)
-node-cron (automation)
-
-Project Structure
-habitquest/
-│
+```
+habit-quest/
 ├── Backend/
-│   ├── Config/
-│   ├── Controllers/
-│   ├── Middleware/
-│   ├── Models/
-│   ├── Routes/
-│   ├── Utils/
-│   └── Server.js
+│   ├── Config/          # MongoDB connection
+│   ├── Controllers/     # Route handler logic
+│   ├── Middleware/      # Auth & validation middleware
+│   ├── Models/          # Mongoose schemas (User, Habit, Task, Sleep, Journal, Activity, Notification)
+│   ├── Routes/          # Express routers
+│   ├── Utils/           # Cron jobs & helpers
+│   ├── Server.js        # App entry point
+│   └── .env.example     # Environment variable template
 │
-├── Frontend/
-│   └── src/
-│       ├── Components/
-│       ├── Context/
-│       ├── Pages/
-│       └── App.jsx
-│
-└── README.md
-Installation & Setup
+└── Frontend/
+    └── src/
+        ├── Components/  # Reusable UI (Sidebar, TopNav, Layout, Footer…)
+        ├── Context/     # React Context for global state
+        ├── Pages/       # Dashboard, Habits, Tasks, Sleep, Journal, Social, Profile, Focus
+        └── App.jsx      # Routing
+```
 
-Clone Repository
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+- **React 19** + **Vite 7**
+- **React Router DOM v7** — client-side routing
+- **Framer Motion** — animations & transitions
+- **Recharts** — sleep & activity charts
+- **Lucide React** — icon set
+- Deployed on **Vercel**
+
+### Backend
+- **Node.js** + **Express 5**
+- **MongoDB** + **Mongoose 9**
+- **JWT** + **bcryptjs** — authentication
+- **node-cron** — scheduled background jobs
+- **express-rate-limit** — DDoS / brute-force protection
+- **compression** — GZIP response compression
+- Deployed on **Render**
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js ≥ 18
+- A MongoDB Atlas cluster (or local MongoDB)
+
+### 1 — Clone the repo
+
+```bash
 git clone https://github.com/prashantkr5/habitquest.git
 cd habitquest
+```
 
-Backend Setup
+### 2 — Backend setup
+
+```bash
 cd Backend
+cp .env.example .env      # fill in your values (see below)
 npm install
+npm run dev               # starts on http://localhost:5001
+```
 
-Create .env file:
+#### Required environment variables (`Backend/.env`)
 
+```env
 PORT=5001
-MONGO_URI=your_mongodb_uri
-JWT_SECRET=your_secret_key
+NODE_ENV=development
+
+MONGO_URI=mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/<dbname>
+
+# Generate with: node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
+JWT_SECRET=your_super_secret_key_here
+
+# Your frontend origin (no trailing slash)
 FRONTEND_URL=http://localhost:5173
+```
 
-Run server:
+### 3 — Frontend setup
 
-npm run dev
-
-Frontend Setup
+```bash
 cd Frontend
+cp .env.example .env      # set VITE_API_URL
 npm install
-npm run dev
+npm run dev               # starts on http://localhost:5173
+```
 
-API Highlights
-Method	Endpoint	Description
-POST	/api/auth/register	Register user
-POST	/api/auth/login	Login user
-GET	/api/habits	Fetch habits
-POST	/api/habits	Create habit
-GET	/api/tasks	Daily tasks
-POST	/api/sleep	Log sleep
-GET	/api/social/leaderboard	Leaderboard
+---
 
-Security
-JWT-based authentication
-HTTP-only cookies
-Rate limiting on auth routes
-Password hashing with bcrypt
+## 🌐 API Overview
 
-Deployment
-Layer	Platform
-Frontend	Vercel
-Backend	Render
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/auth/register` | Register a new user |
+| POST | `/api/auth/login` | Login & receive JWT cookie |
+| GET | `/api/habits` | Get user habits |
+| POST | `/api/habits` | Create a habit |
+| GET | `/api/tasks` | Get today's tasks |
+| POST | `/api/sleep` | Log a sleep entry |
+| GET | `/api/journal` | Get journal entries |
+| GET | `/api/social/leaderboard` | Global streak leaderboard |
+| GET | `/api/notifications` | Fetch notifications |
 
-Future Improvements
-Mobile app (React Native)
-AI-based habit suggestions
-Advanced analytics dashboard
-Plugin system
+> Auth routes are rate-limited to **10 requests / 15 min** per IP. All other API routes allow **200 requests / min**.
 
-Author
-Keshav (Prashant Kumar)
+---
 
-Full-stack developer
-Focus: scalable apps + design
-License
+## ☁️ Deployment
 
-This project is licensed under the MIT License.
+| Service | Platform | Notes |
+|---------|----------|-------|
+| Frontend | **Vercel** | `vercel.json` already configured with SPA rewrites |
+| Backend | **Render** | Set all `.env` vars in the Render dashboard |
 
-Support
-If you like this project:
-Star the repo
-Fork it
-Share it
+---
 
-“Consistency beats motivation. HabitQuest makes consistency addictive.”
+## 📄 License
+
+Distributed under the **MIT License**. See [`LICENSE`](./LICENSE) for details.
+
+---
+
+<p align="center">Made with ❤️ by <b>Keshav</b></p>
