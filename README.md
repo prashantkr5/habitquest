@@ -1,4 +1,5 @@
 HabitQuest
+
 Turn your life into a game. Build habits, earn XP, and compete globally.
 
 HabitQuest is a full-stack gamified productivity platform that helps users build consistency through streaks, rewards, journaling, and social competition.
