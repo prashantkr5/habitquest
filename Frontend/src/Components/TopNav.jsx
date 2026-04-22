@@ -10,7 +10,7 @@ import './Layout.css';
 import './Dropdowns.css';
 
 export default function TopNav() {
-  const { user, setUser } = useAuth();
+  const { user, setUser, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
@@ -40,8 +40,7 @@ export default function TopNav() {
   }, [showNotifs]);
 
   const handleLogout = async () => {
-    await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' });
-    setUser(null);
+    await logout();
     navigate('/Login');
   };
 
