@@ -89,6 +89,29 @@
   }
 }
 
+@media (max-width: 768px) {
+  .welcome-banner-full {
+    padding: 24px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+  .welcome-heading {
+    font-size: 1.8rem;
+  }
+  .welcome-subtext {
+    font-size: 0.95rem;
+    margin-bottom: 16px;
+  }
+  .banner-stats {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .floating-char-solo {
+    display: none;
+  }
+}
+
 /* ─── BOTTOM: Stats Row ─── */
 .stats-row {
   display: flex;

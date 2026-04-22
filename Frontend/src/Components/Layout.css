@@ -229,43 +229,95 @@
   position: relative;
 }
 
-/* Responsive */
+/* ── Mobile / Phone ─────────────────────────────────────── */
 @media (max-width: 768px) {
   .app-canvas {
     padding: 0;
+    height: auto;
+    min-height: 100vh;
+    align-items: flex-start;
   }
+
   .crextio-container {
     border-radius: 0;
     flex-direction: column;
+    height: auto;
+    min-height: 100vh;
   }
+
+  /* Sidebar → fixed bottom navigation bar */
   .sidebar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
     width: 100%;
-    height: 80px;
+    height: 64px;
     flex-direction: row;
-    padding: 0 20px;
+    padding: 0 8px;
     align-items: center;
+    justify-content: space-around;
+    border-right: none;
+    border-top: 1px solid var(--dash-glass-border);
+    background: var(--dash-surface-solid);
+    z-index: 100;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.4);
   }
-  .sidebar-logo {
-    margin-bottom: 0;
-    margin-right: auto;
-    font-size: 1.4rem;
+
+  /* Hide logo, quick note btn, logout btn on mobile sidebar */
+  .sidebar-logo,
+  .sidebar > div:last-child {
+    display: none;
   }
+
   .nav-links {
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-around;
+    gap: 0;
+    width: 100%;
   }
+
+  .nav-item {
+    flex-direction: column;
+    gap: 3px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    font-size: 0.6rem;
+    align-items: center;
+  }
+
+  .nav-item span {
+    display: block;
+    font-size: 0.55rem;
+    letter-spacing: 0;
+  }
+
+  /* Main wrapper: push content above the fixed bottom nav */
+  .main-wrapper {
+    padding-bottom: 64px;
+  }
+
+  .topnav {
+    padding: 10px 16px;
+    height: auto;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .player-stats {
+    max-width: 200px;
+  }
+
+  .content-area {
+    padding: 16px;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 400px) {
   .nav-item span {
     display: none;
   }
-  .topnav {
-    padding: 0 20px;
-    height: auto;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    flex-wrap: wrap;
-    gap: 15px;
-  }
-  .content-area {
-    padding: 20px;
+  .nav-item {
+    padding: 8px 6px;
   }
 }
