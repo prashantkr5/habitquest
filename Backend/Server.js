@@ -17,25 +17,13 @@ app.use(compression());
 // The API is JWT-protected so this is safe.
 
 app.use(cors({
-  origin: (origin, callback) => {
-    // Allow requests with no origin (mobile apps, curl, Render health checks)
-    if (!origin) return callback(null, true);
-
-    // Allow all localhost ports for local development
-    if (origin.startsWith('http://localhost:')) return callback(null, true);
-
-    // Allow ALL Vercel preview & production deployments (*.vercel.app)
-    if (origin.endsWith('.vercel.app')) return callback(null, true);
-
-    // Allow explicit FRONTEND_URL env var (comma-separated list supported)
-    const allowedOrigins = (process.env.FRONTEND_URL || '')
-      .split(',')
-      .map(u => u.trim().replace(/\/$/, ''))
-      .filter(Boolean);
-    if (allowedOrigins.includes(origin)) return callback(null, true);
-
-    return callback(new Error(`CORS blocked: ${origin}`));
-  },
+  origin: [
+    "https://habitquest.vercel.app",
+    "https://habitquest-jmzkmuxvg-prashantkr5s-projects.vercel.app",
+    "https://habitquest-pi-one.vercel.app",
+    "http://localhost:5173",
+    "http://localhost:3000"
+  ],
   credentials: true
 }));
 
